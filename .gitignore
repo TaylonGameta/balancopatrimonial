@@ -2,6 +2,8 @@
 
 /src/main/config
 
+.firebaserc
+
 # dependencies
 /node_modules
 /.pnp
