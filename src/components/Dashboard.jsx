@@ -134,9 +134,11 @@ export default class Dashboard extends React.Component{
                     <div className="container">
                     <h1 id="nome">Dashboard</h1>
                     <hr></hr>
+                    <hr></hr>
                     <button className="btn btn-success  mr-3" onClick={this.carregar}><i className="fa fa-plus-circle"></i><Link Link to="/add"> Adicionar</Link></button>
                     <button className="btn btn-info  mr-3" onClick={this.carregar}><i className="fas fa-redo"></i><Link Link to="/alterar"> Alterar</Link></button>
-                    <button className="btn btn-danger" onClick={this.pegarNome}><i className="fa fa-trash"></i><Link Link to="/excluir"> Excluir</Link></button>
+                    <button className="btn btn-danger mr-3" onClick={this.pegarNome}><i className="fa fa-trash"></i><Link Link to="/excluir"> Excluir</Link></button>
+                    <button className="btn btn-info" ><i className="fas fa-redo"></i><Link Link to="/dre"> DRE</Link></button>
                     
                         <div className="row mt-5">
                             <div className="col-sm-12 col-md-6 col-lg-3 ">
