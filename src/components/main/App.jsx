@@ -18,7 +18,7 @@ export default class App extends React.Component{
         
     }
     render(){
-        document.body.style = 'background: #f5f5f5;';
+        document.body.style = 'background: #f5f5f5;'
         return(
             <HashRouter>
                 <Router></Router>

@@ -10,6 +10,7 @@ import DRE from '../DRE'
 
 export default props =>
     <Switch>
+        <Route exact path='/' component={Login}></Route>
         <Route path='/login' component={Login}></Route>
         <Route path='/registrar' component={Registrar}></Route>
         <Route path='/dashboard' component={Dashboard}></Route>

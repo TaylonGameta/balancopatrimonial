@@ -5,6 +5,7 @@ import firebase from 'firebase'
 import "./Dash.css"
 import Select from 'react-select'
 import {Link} from 'react-router-dom'
+import Botao from './template/Botao'
 
 const items = [{chave : '', valor : {nome : '', valor : ''}}]
 
@@ -111,18 +112,11 @@ export default class Dashboard extends React.Component{
             <React.Fragment>
                 <Header link="/dashboard"></Header>
                 <div className="da">
-                    
                     <div className="container">
-                        <h1 id="nome">Alterar {this.state.id}</h1>
-                        <hr></hr>
-                        <h4 id="nome2"></h4>
-                        <h4 id="valor"></h4>
-                        <hr></hr>
-                        <button className="btn btn-success  mr-3"><i className="fa fa-plus-circle"></i><Link Link to="/add"> Adicionar</Link></button>
-                        <button className="btn btn-info  mr-3" ><i className="fas fa-redo"></i><Link Link to="/alterar"> Alterar</Link></button>
-                        <button className="btn btn-danger mr-3"><i className="fa fa-trash"></i><Link Link to="/excluir"> Excluir</Link></button>  
-                        <button className="btn btn-info" ><i className="fas fa-redo"></i><Link Link to="/dre"> DRE</Link></button> 
-                            <div className="row mt-3">
+                            <Botao tipo="Alterar"></Botao> 
+                            <h4 id="nome2"></h4>
+                            <h4 id="valor"></h4>
+                            <div className="row mt-3 mt-3">
                             <div className="col-lg-4 col-md-6">
                             <h5>Ativo/Passivo</h5>
                                 <Select

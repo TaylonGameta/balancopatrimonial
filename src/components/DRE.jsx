@@ -4,6 +4,7 @@ import Header from './template/Header2'
 import firebase from 'firebase'
 import "./Dash.css"
 import {Link} from 'react-router-dom'
+import Botao from './template/Botao'
 
 
 export default class DRE extends React.Component{
@@ -12,17 +13,11 @@ export default class DRE extends React.Component{
             <React.Fragment>
                 <Header></Header>
                 <div className="da container">
-                <h1 id="nome">DRE</h1>
-                    <hr></hr>
-                    <hr></hr>
-                    <button className="btn btn-success  mr-3" onClick={this.carregar}><i className="fa fa-plus-circle"></i><Link Link to="/add"> Adicionar</Link></button>
-                    <button className="btn btn-info  mr-3" onClick={this.carregar}><i className="fas fa-redo"></i><Link Link to="/alterar"> Alterar</Link></button>
-                    <button className="btn btn-danger mr-3" onClick={this.pegarNome}><i className="fa fa-trash"></i><Link Link to="/excluir"> Excluir</Link></button>
-                    <button className="btn btn-info" ><i className="fas fa-redo"></i><Link Link to="/dre"> DRE</Link></button>
+                <Botao tipo="DRE"></Botao>
                     
                     <div className="row mt-3">
                         
-                        <div className="col-lg-6">
+                        <div className="form col-lg-6">
                         
                             <div className="form-group">
                                 <label>Receita Operacional Bruta:</label>

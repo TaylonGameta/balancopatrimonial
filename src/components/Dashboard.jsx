@@ -4,6 +4,7 @@ import Dash from './template/Dash'
 import firebase from 'firebase'
 import "./Dash.css"
 import {Link} from 'react-router-dom'
+import Botao from './template/Botao'
 
 
 
@@ -36,9 +37,6 @@ export default class Dashboard extends React.Component{
         firebase.auth().onAuthStateChanged(usuario=>{
             if(usuario){
                 
-                //firebase.database().ref("users/" + firebase.auth().currentUser.uid + "/ativoCirculante").push({nome : "Contas a receber", valor : 100.40}).then(()=>{
-
-               // })
                 firebase.database().ref("users/" + firebase.auth().currentUser.uid + "/ativoCirculante").on('child_added', snapshot =>{
                     const lista = this.state.ativosC
                     lista.push({chave : snapshot.key, valor : snapshot.val()})
@@ -132,13 +130,7 @@ export default class Dashboard extends React.Component{
                 <div className="da">
                     
                     <div className="container">
-                    <h1 id="nome">Dashboard</h1>
-                    <hr></hr>
-                    <hr></hr>
-                    <button className="btn btn-success  mr-3" onClick={this.carregar}><i className="fa fa-plus-circle"></i><Link Link to="/add"> Adicionar</Link></button>
-                    <button className="btn btn-info  mr-3" onClick={this.carregar}><i className="fas fa-redo"></i><Link Link to="/alterar"> Alterar</Link></button>
-                    <button className="btn btn-danger mr-3" onClick={this.pegarNome}><i className="fa fa-trash"></i><Link Link to="/excluir"> Excluir</Link></button>
-                    <button className="btn btn-info" ><i className="fas fa-redo"></i><Link Link to="/dre"> DRE</Link></button>
+                        <Botao tipo="Dashboard"></Botao>
                     
                         <div className="row mt-5">
                             <div className="col-sm-12 col-md-6 col-lg-3 ">

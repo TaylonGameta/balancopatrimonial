@@ -45,6 +45,7 @@
     padding: 5px;
     width: 100px;
     text-decoration: none;
+    color: white;
 }
 .da button.btn-info{
     background: transparent;

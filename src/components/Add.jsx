@@ -5,6 +5,7 @@ import firebase from 'firebase'
 import "./Dash.css"
 import Select from 'react-select'
 import {Link} from 'react-router-dom'
+import Botao from './template/Botao'
 
 const items = [{chave : '', valor : {nome : '', valor : ''}}]
 
@@ -22,29 +23,44 @@ export default class Dashboard extends React.Component{
     constructor(props){
         super(props)
         this.state = {
+            tatual : null,
+            atual : [],
             tipo : null,
             nome : null,
-            valor : null
+            valor : 4,
+            ac : [{value : "Caixa", label : "Caixa"}, {value : "Estoque", label : "Estoque"},{value : "Aplicação LP", label : "Aplicação LP"},
+            {value : "Contas a receber", label : "Contas a receber"}],
+
+            anc : [{value : "Veículos", label : "Veículos"}, {value : "Imóveis", label : "Imóveis"},{value : "Máquinas/Equipamentos", label : "Máquinas/Equipamentos"},
+            {value : "Marcas e patentes", label : "Marcas e patentes"},{value : "Part. outras empresas", label : "Part. outras empresas"}],
+
+            pc : [{value : "Contas a pagar", label : "Contas a pagar"}, {value : "Salários a pagar", label : "Salários a pagar"},{value : "Fornecedores a pagar", label : "Fornecedores a pagar"},
+            {value : "Empréstimos de CP", label : "Empréstimos de CP"}],
+
+            pnc : [{value : "Títulos a pagar de LP", label : "Títulos a pagar de LP"}, {value : "Empréstimo/Financiamento de LP", label : "Empréstimo/Financiamento de LP"}],
+            
+            pl : [{value : "Lucros acumulados ou prejuízos", label : "Lucros acumulados ou prejuízos"}, {value : "Reservas de lucro", label : "Reservas de lucro"},{value : "Capital Social", label : "Capital Social"}]
         }
         this.salvar = this.salvar.bind(this);
        
     }
 
     salvar(){
-        console.log(this.state.nome)
-        console.log(this.state.valor)
+        
         firebase.auth().onAuthStateChanged(usuario =>{
             if(usuario){
-                if(this.state.nome && this.state.valor && this.state.tipo != null){
+                if(this.state.tatual && this.state.valor && this.state.tipo != null){
                     firebase.database().ref('users/' + firebase.auth().currentUser.uid + '/' + this.state.tipo)
-                    .push({nome : this.state.nome, valor : parseFloat(this.state.valor)}).then(
+                    .push({nome : this.state.tatual, valor : parseFloat(this.state.valor)}).then(
                         document.getElementById('success').innerHTML = 'Cadastrado com sucesso!'
+                        
                     )
                 }else{
                     document.getElementById('erro').innerHTML = "Os campos devem ser preenchidos"
                 }
             }
         })
+        
         
     }
 
@@ -57,6 +73,8 @@ export default class Dashboard extends React.Component{
 
     handleChange2 = (selectedOption) => {
         
+        this.setState({tatual : selectedOption.value})
+        console.log(this.state.tatual)
        
     }
     
@@ -64,7 +82,28 @@ export default class Dashboard extends React.Component{
     handleChange = (selectedOption) => {
         this.setState({tipo : null})
         this.setState({tipo : selectedOption.value})
-        console.log(this.state.tipo)
+        this.setState({atual : []})
+        this.setState({tatual : null})
+        if(selectedOption.value === 'ativoCirculante'){
+            
+            this.setState({atual : this.state.ac})
+        }
+        if(selectedOption.value === 'ativoNC'){
+            
+            this.setState({atual : this.state.anc})
+        }
+        if(selectedOption.value === 'passivoCirculante'){
+            
+            this.setState({atual : this.state.pc})
+        }
+        if(selectedOption.value === 'passivoNC'){
+            
+            this.setState({atual : this.state.pnc})
+        }
+        if(selectedOption.value === 'patrimonioL'){
+            
+            this.setState({atual : this.state.pl})
+        }
         
     }
 
@@ -82,13 +121,7 @@ export default class Dashboard extends React.Component{
                 <div className="da">
                     
                     <div className="container">
-                        <h1>Adicionar</h1>
-                        <hr></hr>
-                        <hr></hr>
-                        <button className="btn btn-success  mr-3"><i className="fa fa-plus-circle"></i><Link Link to="/add"> Adicionar</Link></button>
-                        <button className="btn btn-info  mr-3" ><i className="fas fa-redo"></i><Link Link to="/alterar"> Alterar</Link></button>
-                        <button className="btn btn-danger mr-3"><i className="fa fa-trash"></i><Link Link to="/excluir"> Excluir</Link></button>   
-                        <button className="btn btn-info" ><i className="fas fa-redo"></i><Link Link to="/dre"> DRE</Link></button>
+                        <Botao tipo="Adicionar"></Botao>
                             <div className="row mt-3">
                             <div className="col-lg-4 col-md-6">
                             <h5>Ativo/Passivo</h5>
@@ -99,17 +132,19 @@ export default class Dashboard extends React.Component{
                                 />
                             </div>
                             <div className="col-lg-4 col-md-6">
-                             
+                            <h5>Item</h5>
+                                <Select
+                                    placeholder="Selecionar"
+                                    options={this.state.atual}
+                                    onChange={this.handleChange2}
+                                ></Select>
                             </div>
                             
                             </div> 
                             <div className="row mt-3">
                                 <div className="col-lg-4">
                                     <form className='form'>
-                                        <div className="form-group">
-                                            <label>Nome</label>
-                                            <input onChange={e =>this.mudarObj(e)} className='form-control'></input>
-                                        </div>
+                                        
                                         <div className="form-group">
                                             <label>Valor</label>
                                             <input onChange={e =>this.mudarObj2(e)} className='form-control'></input>
@@ -120,6 +155,7 @@ export default class Dashboard extends React.Component{
                                     <p id="erro"></p>
                                     <p id="success"></p>
                                     <button onClick={this.salvar}  className="btn btn-success">Cadastrar</button>
+                                    
                                 </div>
                                 
                                 

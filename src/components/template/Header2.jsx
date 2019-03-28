@@ -3,6 +3,7 @@ import './Header.css'
 import {Link} from 'react-router-dom'
 import firebase from 'firebase'
 import $ from 'jquery'
+import { Redirect } from 'react-router-dom'
 
 
 
@@ -10,7 +11,8 @@ export default class Header extends React.Component{
 
     constructor(props){
         super(props)
-        this.state = {nome : null, url : null}
+        this.state = {nome : null, url : null, redirect : false}
+        this.redirecionar = this.redirecionar.bind(this)
     }
     
     
@@ -25,10 +27,17 @@ export default class Header extends React.Component{
             })
     
     }
+    redirecionar(){
+        this.setState({redirect : true})
+        if(this.state.redirect){
+            return <Redirect to='/login' />  
+        }
+        
+    }
     sair(){
-        firebase.auth().signOut().then(()=>{
-            
-        })
+        
+        
+        
     }
 
     render(){
@@ -51,7 +60,7 @@ export default class Header extends React.Component{
                                     <div className="mr-5 dropdown-menu" aria-labelledby="navbarDropdown">
                                         <button className='btn btn-default'>{this.state.nome}</button>
                                         
-                                        <button className='btn btn-default' onClick={this.sair}>Sair</button>
+                                        
                                     </div>
                             </li>
                         <li className="nav-item">

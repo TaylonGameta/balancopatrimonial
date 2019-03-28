@@ -2,7 +2,7 @@ import React, {Component} from 'react'
 import './Clogin.css'
 
 import * as firebase from 'firebase'
-
+import { Redirect } from 'react-router-dom'
 
 
 export default class Login extends Component{
@@ -29,7 +29,7 @@ export default class Login extends Component{
             window.location.hash = "#/dashboard"
         }).catch(erro =>{
             document.getElementById("erro").innerHTML = "Alguma coisa falhou"
-           
+            
         })
         
     }
@@ -37,7 +37,7 @@ export default class Login extends Component{
         var provider = new firebase.auth.FacebookAuthProvider()
         firebase.auth().signInWithPopup(provider).then(resposta=>{
             console.log(resposta)
-            window.location.hash = "#/dashboard"
+           
         }).catch(erro =>{
             document.getElementById("erro").innerHTML = "Alguma coisa falhou"
            
