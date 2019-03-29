@@ -5,6 +5,11 @@
 .form input{
     border-radius: 20px;
 }
+.form input.blue{
+    border-radius: 20px;
+    background-color: #005493;
+    color : white;
+}
 .container{
     background-color: #f5f5f5;
     padding: 5%;

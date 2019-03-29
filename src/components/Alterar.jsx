@@ -41,6 +41,10 @@ export default class Dashboard extends React.Component{
         console.log(this.state.nome)
         console.log(this.state.valor)
         if(this.state.nome && this.state.valor && this.state.selectedOption && this.state.id != null){
+            if(this.state.valor < 0){
+                document.getElementById('erro').innerHTML = "O número deve ser positivo!"
+                return
+            }
             if(firebase.auth().onAuthStateChanged){
                 firebase.database().ref('users/' + firebase.auth().currentUser.uid + '/' + this.state.selectedOption.value + '/' + this.state.id)
                 .set({nome : this.state.nome, valor : parseFloat(this.state.valor)}).then(

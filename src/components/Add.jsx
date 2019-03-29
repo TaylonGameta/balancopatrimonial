@@ -28,7 +28,7 @@ export default class Dashboard extends React.Component{
             tipo : null,
             nome : null,
             valor : 4,
-            ac : [{value : "Caixa", label : "Caixa"}, {value : "Estoque", label : "Estoque"},{value : "Aplicação LP", label : "Aplicação LP"},
+            ac : [{value : "Caixa", label : "Caixa"}, {value : "Estoque", label : "Estoque"},{value : "Aplicação CP", label : "Aplicação CP"},
             {value : "Contas a receber", label : "Contas a receber"}],
 
             anc : [{value : "Veículos", label : "Veículos"}, {value : "Imóveis", label : "Imóveis"},{value : "Máquinas/Equipamentos", label : "Máquinas/Equipamentos"},
@@ -49,6 +49,10 @@ export default class Dashboard extends React.Component{
         
         firebase.auth().onAuthStateChanged(usuario =>{
             if(usuario){
+                if(this.state.valor < 0){
+                    document.getElementById('erro').innerHTML = "O número deve ser positivo!"
+                    return
+                }
                 if(this.state.tatual && this.state.valor && this.state.tipo != null){
                     firebase.database().ref('users/' + firebase.auth().currentUser.uid + '/' + this.state.tipo)
                     .push({nome : this.state.tatual, valor : parseFloat(this.state.valor)}).then(
