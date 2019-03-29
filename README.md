@@ -1,7 +1,7 @@
 # Balanco Patrimonial
 Projeto criado para o trabalho de administração financeira.
 
-##Instalação
+## Instalação
 
 ```bash
 npm install
@@ -10,7 +10,7 @@ npm install
 npm start
 ```
 
-##Configurando
+## Configurando
 Vá para a pasta /src/components/main e crie um arquivo chamado config.js, que receberá o conteúdo inicial do firebase.
 Ex:
 ```javascript
