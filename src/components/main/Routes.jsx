@@ -7,6 +7,7 @@ import Dashboard from '../Dashboard'
 import Alterar from '../Alterar'
 import Add from '../Add'
 import DRE from '../DRE'
+import Excluir from '../Excluir'
 
 export default props =>
     <Switch>
@@ -17,5 +18,6 @@ export default props =>
         <Route path='/alterar' component={Alterar}></Route>
         <Route path='/add' component={Add}></Route>
         <Route path='/dre' component={DRE}></Route>
+        <Route path='/excluir' component={Excluir}></Route>
 
     </Switch>

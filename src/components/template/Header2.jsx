@@ -44,8 +44,8 @@ export default class Header extends React.Component{
         
         return(
             
-            <nav className="navbar navbar-expand-lg mb-5">
-            <Link className="ml-5 navbar-brand" Link to='/dashboard'>Balanço Patrimonial</Link>
+            <nav className="navbar navbar-expand-lg">
+            <Link className="navbar-brand" Link to='/dashboard'>Balanço Patrimonial</Link>
             <button className="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
                 <span className="navbar-toggler-icon"></span>
             </button>

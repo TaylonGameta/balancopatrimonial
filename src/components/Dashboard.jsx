@@ -18,7 +18,7 @@ export default class Dashboard extends React.Component{
         this.carregar = this.carregar.bind(this);
         this.handleChange = this.handleChange.bind(this);
         
-        this.state = {ativosC : [], passivosC : [], ativosNC : [], passivosNC : []}
+        this.state = {ativosC : [], passivosC : [], ativosNC : [], passivosNC : [], patrimonioL : []}
 
         
         
@@ -72,6 +72,15 @@ export default class Dashboard extends React.Component{
                         ativosNC :  lista
                     })
                 })
+
+
+                firebase.database().ref("users/" + firebase.auth().currentUser.uid + "/patrimonioL").on('child_added', snapshot =>{
+                    const lista = this.state.patrimonioL
+                    lista.push({chave : snapshot.key, valor : snapshot.val()})
+                    this.setState({
+                        patrimonioL :  lista
+                    })
+                })
                 
                 
             }else{
@@ -90,6 +99,7 @@ export default class Dashboard extends React.Component{
         const totalAC = this.state.ativosC.map(a=>a.valor.valor).reduce((a,b)=>a+b, 0)
         const totalpNC = this.state.passivosNC.map(a=>a.valor.valor).reduce((a,b)=>a+b, 0)
         const totalaNC = this.state.ativosNC.map(a=>a.valor.valor).reduce((a,b)=>a+b, 0)
+        const totalPL = this.state.patrimonioL.map(a=>a.valor.valor).reduce((a,b)=>a+b, 0)
 
         const totalA = totalAC + totalaNC;
         const totalP = totalPC + totalpNC;
@@ -122,6 +132,13 @@ export default class Dashboard extends React.Component{
                     </React.Fragment>    
                  )    
         })
+        const Items5 = this.state.patrimonioL.map(valor =>{
+            return(
+                    <React.Fragment>
+                        <li className="list-group-item list-group-item-action">{`${valor.valor.nome} : ${valor.valor.valor.toFixed(2)} R$` }</li>
+                    </React.Fragment>    
+                 )    
+        })
 
         
         return(
@@ -133,31 +150,46 @@ export default class Dashboard extends React.Component{
                         <Botao tipo="Dashboard"></Botao>
                     
                         <div className="row mt-5">
-                            <div className="col-sm-12 col-md-6 col-lg-3 ">
+                            <div className="col-sm-12 col-md-6 col-lg-6 ">
                                 <h5>Passivos Circulantes</h5>
-                                <ul className="mt-3 list-group pre-scrollable"> {Items} </ul>
+                                <ul className="mt-3 list-group"> {Items} </ul>
                                 <h5 className="mt-2">Total: {totalPC.toFixed(2)} R$</h5>
                                 <hr></hr>
                             </div>
-                            <div className="col-sm-12 col-md-6 col-lg-3 ">
+                        </div>
+                        <div className="row mt-5">
+                            <div className="col-sm-12 col-md-6 col-lg-6 ">
                                 <h5>Ativos Circulantes</h5>
-                                <ul className="mt-3 list-group pre-scrollable"> {Items2}</ul>
+                                <ul className="mt-3 list-group"> {Items2}</ul>
                                 <h5 className="mt-2">Total: {totalAC.toFixed(2)} R$</h5>
                                 <hr></hr>
                             </div>
-                            <div className="col-sm-12 col-md-6 col-lg-3">
-                                <h5>Passivos NC</h5>
-                                <ul className="mt-3 list-group pre-scrollable"> {Items3}</ul>
+                        </div>
+                        <div className="row mt-5">
+                            <div className="col-sm-12 col-md-6 col-lg-6">
+                                <h5>Passivos Não Circulantes</h5>
+                                <ul className="mt-3 list-group"> {Items3}</ul>
                                 <h5 className="mt-2">Total: {totalpNC.toFixed(2)} R$</h5>
                                 <hr></hr>
                             </div>
-                            <div className="col-sm-12 col-md-6 col-lg-3">
-                                <h5>Ativos NC</h5>
-                                <ul className="mt-3 list-group pre-scrollable"> {Items4}</ul>
+                        </div>
+                        <div className="row mt-5">
+                            <div className="col-sm-12 col-md-6 col-lg-6">
+                                <h5>Ativos Não Circulantes</h5>
+                                <ul className="mt-3 list-group"> {Items4}</ul>
                                 <h5 className="mt-2">Total: {totalaNC.toFixed(2)} R$</h5>
                                 <hr></hr>
                             </div>
                         </div>
+                        <div className="row mt-5">
+                            <div className="col-sm-12 col-md-6 col-lg-6">
+                                <h5>Patrimonio Líquido</h5>
+                                <ul className="mt-3 list-group"> {Items5}</ul>
+                                <h5 className="mt-2">Total: {totalPL.toFixed(2)} R$</h5>
+                                <hr></hr>
+                            </div>
+                        </div>
+                        
                         <div className="row mt-5">
                             <h5>Total Passivo: {totalP.toFixed(2)} R$</h5>
                             
