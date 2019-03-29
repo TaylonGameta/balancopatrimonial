@@ -10,7 +10,7 @@ npm install
 npm start
 ```
 
-#Configurando o config.js
+#Configurando
 Vá para a pasta /src/components/main e crie um arquivo chamado config.js, que receberá o conteúdo inicial do firebase.
 Ex:
 ```javascript
